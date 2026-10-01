@@ -1,11 +1,190 @@
-<!doctype html><html lang='it'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='theme-color' content='#F05A16'><title>AperiArt 25</title><style>
-:root{--cream:#FFF1DA;--orange:#F05A16;--coral:#E94F72;--pink:#F4A5AD;--green:#315C47;--blue:#173C70;--ochre:#F5AA24;--ink:#4b2a1e}*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:ui-rounded,"Arial Rounded MT Bold",system-ui,sans-serif}.wrap{max-width:520px;margin:auto;min-height:100vh;padding:24px 18px 90px;position:relative;overflow:hidden}.blob{position:absolute;border-radius:45% 55% 60% 40%;opacity:.18;z-index:-1}.b1{width:180px;height:180px;background:var(--orange);top:-60px;right:-60px;transform:rotate(22deg)}.b2{width:150px;height:150px;background:var(--green);bottom:100px;left:-80px}.hero{text-align:center;padding:22px 0 16px;position:relative}.paint{height:15px;width:82%;margin:0 auto 14px;border-radius:60% 35% 55% 40%;background:var(--pink);transform:rotate(-2deg);opacity:.72}.flower{font-size:28px;position:absolute}.f1{left:3px;top:10px;transform:rotate(-18deg)}.f2{right:2px;top:72px;transform:rotate(15deg)}.kicker{letter-spacing:.16em;font-size:12px;font-weight:900;color:var(--green)}h1{font-family:cursive;font-size:68px;line-height:.9;margin:8px 0;color:var(--orange);transform:rotate(-2deg);text-shadow:3px 3px 0 rgba(233,79,114,.18)}.sub{font-size:17px;font-weight:800}.date{display:inline-block;margin-top:12px;padding:8px 14px;border:2px solid var(--coral);border-radius:999px;color:var(--coral);font-weight:900}.quote{font-family:cursive;font-size:22px;color:var(--green);margin:18px 0 22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card,button{border:0;border-radius:22px;padding:18px;text-align:left;font:inherit;box-shadow:0 7px 0 rgba(75,42,30,.10);cursor:pointer}.card b{display:block;font-size:19px;margin-top:6px}.orange{background:var(--orange);color:white}.pink{background:var(--pink)}.green{background:var(--green);color:white}.ochre{background:var(--ochre)}.panel{background:rgba(255,255,255,.55);border:2px solid rgba(75,42,30,.08);border-radius:26px;padding:18px;margin-top:16px}.hidden{display:none}h2{color:var(--orange);font-size:30px;margin:4px 0 8px}label{display:block;font-weight:800;margin:14px 0 6px}input{width:100%;padding:14px;border:2px solid #ead8bd;border-radius:14px;background:#fffaf1;font:inherit}.primary{width:100%;margin-top:16px;background:var(--orange);color:white;text-align:center;font-weight:900}.back{background:transparent;box-shadow:none;padding:4px 0;color:var(--green);font-weight:900}.art{background:white;border-radius:18px;padding:10px;margin:12px 0}.art img{width:100%;border-radius:14px;display:block;max-height:320px;object-fit:cover}.tag{font-weight:900;color:var(--coral);font-size:12px;letter-spacing:.1em}.nav{position:fixed;bottom:0;left:0;right:0;background:#fff8ea;border-top:1px solid #ead8bd;display:flex;justify-content:center}.navin{width:min(520px,100%);display:flex;justify-content:space-around;padding:10px}.nav button{background:transparent;box-shadow:none;padding:8px;font-size:12px;text-align:center}.notice{background:#fff7e7;border-left:5px solid var(--ochre);padding:12px;border-radius:12px;margin-top:12px}.tiny{font-size:12px;opacity:.72}.admin{margin-top:26px;text-align:center;font-size:12px;color:#8c6d59;text-decoration:underline;cursor:pointer}
-</style></head><body><main class='wrap'><i class='blob b1'></i><i class='blob b2'></i>
-<section id='home'><div class='hero'><span class='flower f1'>🌿</span><span class='flower f2'>🌸</span><div class='kicker'>IL MIO 25° COMPLEANNO</div><h1>AperiArt</h1><div class='paint'></div><div class='sub'>Drink, pittura e buona compagnia</div><div class='date'>DOMENICA 4 OTTOBRE · 17:30</div><div class='quote'>Dipingi. Brinda. Vota.</div></div><div class='grid'><button class='card orange' onclick="show('upload')">📸<b>Carica opera</b><span>Porta il tuo quadro in galleria</span></button><button class='card pink' onclick="show('gallery')">🖼️<b>Galleria</b><span>Scopri tutte le opere</span></button><button class='card green' onclick="show('vote')">♥<b>Vota</b><span>Scegli i tuoi preferiti</span></button><button class='card ochre' onclick="show('music')">♫<b>Musica</b><span>Proponi una canzone</span></button></div><div class='admin' onclick="show('admin')">Regia AperiArt</div></section>
-<section id='upload' class='hidden'><button class='back' onclick="show('home')">← Home</button><div class='panel'><div class='tag'>ENTRA IN GALLERIA</div><h2>Carica la tua opera</h2><p>Scatta una bella foto frontale del quadro. Il nome dell'artista resterà nascosto durante le votazioni.</p><label>Nome artista</label><input id='artist' placeholder='Es. Giulia'><label>Titolo dell'opera</label><input id='title' placeholder='Es. Tramonto dopo 3 Spritz'><label>Foto del quadro</label><input id='photo' type='file' accept='image/*' capture='environment'><button class='primary' onclick='addArt()'>ESPONI L’OPERA 🎨</button><div id='upmsg'></div></div></section>
-<section id='gallery' class='hidden'><button class='back' onclick="show('home')">← Home</button><div class='panel'><div class='tag'>GALLERIA APERIART</div><h2>Le opere</h2><p class='tiny'>Durante il voto gli autori restano anonimi.</p><div id='arts'></div></div></section>
-<section id='vote' class='hidden'><button class='back' onclick="show('home')">← Home</button><div class='panel'><div class='tag'>GIURIA POPOLARE</div><h2>È il momento di votare</h2><div id='votestate' class='notice'>Le votazioni non sono ancora aperte. Goditi l'aperitivo 🍹</div><div id='voteform' class='hidden'><label>🏆 Premio AperiArt</label><select id='v1'></select><label>🎨 Premio Picasso</label><select id='v2'></select><label>🤪 Premio “Ma che ca…”</label><select id='v3'></select><button class='primary' onclick='saveVote()'>CONFERMA I MIEI VOTI</button></div></div></section>
-<section id='music' class='hidden'><button class='back' onclick="show('home')">← Home</button><div class='panel'><div class='tag'>COLONNA SONORA</div><h2>Musica AperiArt</h2><label>Proponi una canzone</label><input id='song' placeholder='Titolo – Artista'><button class='primary' onclick="song()">AGGIUNGI PROPOSTA ♫</button><div id='songmsg'></div></div></section>
-<section id='admin' class='hidden'><button class='back' onclick="show('home')">← Home</button><div class='panel'><div class='tag'>AREA PRIVATA</div><h2>Regia AperiArt</h2><p id='stats'></p><button class='primary' onclick='toggleVotes()' id='toggle'>APRI VOTAZIONI</button><button class='primary' style='background:var(--green)' onclick="show('gallery')">VEDI GALLERIA</button><p class='tiny'>Questa demo salva i dati solo sul dispositivo. Nella versione online collegheremo storage e database.</p></div></section>
-</main><nav class='nav'><div class='navin'><button onclick="show('home')">⌂<br>Home</button><button onclick="show('upload')">＋<br>Opera</button><button onclick="show('gallery')">▧<br>Galleria</button><button onclick="show('vote')">♥<br>Vota</button></div></nav><script>
-let state=JSON.parse(localStorage.getItem('ap_state')||'{"arts":[],"open":false,"votes":[],"songs":[]}');const save=()=>localStorage.setItem('ap_state',JSON.stringify(state));function show(id){document.querySelectorAll('main section').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');render()}function addArt(){let a=artist.value.trim(),t=title.value.trim(),f=photo.files[0];if(!a||!t||!f){upmsg.innerHTML='<div class="notice">Completa nome, titolo e foto.</div>';return}let r=new FileReader();r.onload=()=>{state.arts.push({id:Date.now(),artist:a,title:t,img:r.result});save();upmsg.innerHTML='<div class="notice">Opera esposta! Numero #'+String(state.arts.length).padStart(2,'0')+' ✓</div>';artist.value='';title.value='';photo.value=''};r.readAsDataURL(f)}function render(){arts.innerHTML=state.arts.length?'':'<div class="notice">La galleria aspetta la prima opera.</div>';state.arts.forEach((a,i)=>arts.innerHTML+=`<div class='art'><img src='${a.img}'><div class='tag'>OPERA #${String(i+1).padStart(2,'0')}</div><b>${a.title}</b></div>`);votestate.classList.toggle('hidden',state.open);voteform.classList.toggle('hidden',!state.open);[v1,v2,v3].forEach(s=>s.innerHTML='<option value="">Scegli un’opera…</option>'+state.arts.map((a,i)=>`<option value='${a.id}'>#${String(i+1).padStart(2,'0')} — ${a.title}</option>`).join(''));stats.textContent=`${state.arts.length} opere · ${state.votes.length} voti registrati`;toggle.textContent=state.open?'CHIUDI VOTAZIONI':'APRI VOTAZIONI'}function toggleVotes(){state.open=!state.open;save();render()}function saveVote(){let x=[v1.value,v2.value,v3.value];if(x.some(v=>!v)||new Set(x).size<3){alert('Scegli tre opere diverse.');return}state.votes.push(x);save();voteform.innerHTML='<div class="notice"><b>VOTO REGISTRATO ✓</b><br>Ora prendi uno Spritz e comportati come un critico d’arte.</div>';render()}function song(){if(!song.value.trim())return;state.songs.push(song.value.trim());save();songmsg.innerHTML='<div class="notice">Proposta aggiunta alla playlist ✓</div>';song.value=''}render();</script></body></html>
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#F05A16">
+<title>AperiArt 25</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--cream:#FFF1DA;--orange:#F05A16;--coral:#E94F72;--pink:#F4A5AD;--green:#315C47;--blue:#173C70;--ochre:#F5AA24;--ink:#4b2a1e;--paper:#fffaf1}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:ui-rounded,"Arial Rounded MT Bold",system-ui,sans-serif}
+.wrap{max-width:540px;margin:auto;min-height:100vh;padding:24px 18px 100px;position:relative;overflow:hidden}.hidden{display:none!important}
+.blob{position:absolute;border-radius:45% 55% 60% 40%;opacity:.16;z-index:-1}.b1{width:190px;height:190px;background:var(--orange);top:-60px;right:-65px;transform:rotate(22deg)}.b2{width:160px;height:160px;background:var(--green);bottom:120px;left:-90px}
+.hero{text-align:center;padding:22px 0 16px;position:relative}.paint{height:15px;width:82%;margin:0 auto 14px;border-radius:60% 35% 55% 40%;background:var(--pink);transform:rotate(-2deg);opacity:.72}
+.kicker{letter-spacing:.16em;font-size:12px;font-weight:900;color:var(--green)}h1{font-family:cursive;font-size:68px;line-height:.9;margin:8px 0;color:var(--orange);transform:rotate(-2deg);text-shadow:3px 3px 0 rgba(233,79,114,.18)}
+h2{color:var(--orange);font-size:30px;margin:4px 0 8px}.sub{font-size:17px;font-weight:800}.date{display:inline-block;margin-top:12px;padding:8px 14px;border:2px solid var(--coral);border-radius:999px;color:var(--coral);font-weight:900}.quote{font-family:cursive;font-size:22px;color:var(--green);margin:18px 0 22px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card,button{border:0;border-radius:22px;padding:18px;text-align:left;font:inherit;box-shadow:0 7px 0 rgba(75,42,30,.10);cursor:pointer}.card b{display:block;font-size:19px;margin-top:6px}.orange{background:var(--orange);color:white}.pink{background:var(--pink)}.green{background:var(--green);color:white}.ochre{background:var(--ochre)}
+.panel{background:rgba(255,255,255,.58);border:2px solid rgba(75,42,30,.08);border-radius:26px;padding:18px;margin-top:16px}
+label{display:block;font-weight:800;margin:14px 0 6px}input,select{width:100%;padding:14px;border:2px solid #ead8bd;border-radius:14px;background:var(--paper);font:inherit}
+.primary{width:100%;margin-top:16px;background:var(--orange);color:white;text-align:center;font-weight:900}.secondary{width:100%;margin-top:10px;background:var(--green);color:white;text-align:center;font-weight:900}.danger{width:100%;margin-top:10px;background:#b73535;color:white;text-align:center;font-weight:900}
+.back{background:transparent;box-shadow:none;padding:4px 0;color:var(--green);font-weight:900}.art{background:white;border-radius:18px;padding:10px;margin:12px 0}.art img{width:100%;aspect-ratio:4/3;border-radius:14px;display:block;object-fit:cover}.tag{font-weight:900;color:var(--coral);font-size:12px;letter-spacing:.1em}.notice{background:#fff7e7;border-left:5px solid var(--ochre);padding:12px;border-radius:12px;margin-top:12px}.ok{border-left-color:var(--green)}.tiny{font-size:12px;opacity:.72}.muted{opacity:.7}.welcome{display:flex;align-items:center;gap:10px;margin:8px 0 16px;font-weight:900}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:white;font-weight:900}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fff8ea;border-top:1px solid #ead8bd;display:flex;justify-content:center;z-index:5}.navin{width:min(540px,100%);display:flex;justify-content:space-around;padding:10px}.nav button{background:transparent;box-shadow:none;padding:8px;font-size:12px;text-align:center}
+.loader{padding:24px;text-align:center}.statuspill{display:inline-block;padding:7px 10px;border-radius:999px;background:white;font-size:12px;font-weight:900;margin:5px 3px}.spotify{background:#191414;color:white}.adminlink{margin-top:28px;text-align:center;font-size:12px;color:#8c6d59;text-decoration:underline;cursor:pointer}
+</style>
+</head>
+<body>
+<main class="wrap"><i class="blob b1"></i><i class="blob b2"></i>
+
+<section id="loading"><div class="panel loader"><b>Sto preparando AperiArt…</b></div></section>
+
+<section id="onboarding" class="hidden">
+ <div class="hero"><div class="kicker">BENVENUTO AL MIO 25°</div><h1>AperiArt</h1><div class="paint"></div><div class="quote">Prima di iniziare, come ti chiami?</div></div>
+ <div class="panel"><label>Il tuo nome</label><input id="joinName" maxlength="40" placeholder="Es. Giulia"><button class="primary" onclick="joinEvent()">ENTRA AD APERIART 🎨</button><div id="joinMsg"></div></div>
+</section>
+
+<section id="home" class="hidden">
+ <div class="hero"><div class="kicker">IL MIO 25° COMPLEANNO</div><h1>AperiArt</h1><div class="paint"></div><div class="sub">Drink, pittura e buona compagnia</div><div class="date">DOMENICA 4 OTTOBRE · 17:30</div><div class="quote">Dipingi. Brinda. Vota.</div></div>
+ <div id="welcome" class="welcome"></div><div id="phaseNotice"></div>
+ <div class="grid">
+  <button class="card orange" id="homeMain" onclick="openPrimary()">📸<b>Carica opera</b><span>Porta il tuo quadro in galleria</span></button>
+  <button class="card pink" onclick="show('gallery')">🖼️<b>Galleria</b><span>Scopri tutte le opere</span></button>
+  <button class="card green" onclick="show('vote')">♥<b>Vota</b><span>Scegli i tuoi preferiti</span></button>
+  <button class="card ochre" onclick="show('music')">♫<b>Musica</b><span>La playlist della festa</span></button>
+ </div>
+ <div class="adminlink" onclick="show('adminInfo')">Regia AperiArt</div>
+</section>
+
+<section id="upload" class="hidden"><button class="back" onclick="show('home')">← Home</button>
+ <div class="panel"><div class="tag">ENTRA IN GALLERIA</div><h2>La tua opera</h2>
+ <p id="uploadIntro">Scatta una foto frontale del quadro. L'autore resterà nascosto durante le votazioni.</p>
+ <div id="existingArt"></div>
+ <div id="uploadForm">
+  <label>Titolo dell'opera <span class="tiny">(facoltativo)</span></label><input id="title" maxlength="80" placeholder="Es. Tramonto dopo 3 Spritz">
+  <label>Foto del quadro</label><input id="photo" type="file" accept="image/jpeg,image/png,image/webp" capture="environment">
+  <button class="primary" id="uploadBtn" onclick="saveArtwork()">ESPONI L’OPERA 🎨</button><div id="upmsg"></div>
+ </div>
+ </div>
+</section>
+
+<section id="gallery" class="hidden"><button class="back" onclick="show('home')">← Home</button><div class="panel"><div class="tag">GALLERIA APERIART</div><h2>Le opere</h2><p class="tiny">Gli autori restano anonimi fino alla premiazione.</p><div id="arts"></div></div></section>
+
+<section id="vote" class="hidden"><button class="back" onclick="show('home')">← Home</button><div class="panel"><div class="tag">GIURIA POPOLARE</div><h2>È il momento di votare</h2><div id="voteArea"></div></div></section>
+
+<section id="music" class="hidden"><button class="back" onclick="show('home')">← Home</button><div class="panel"><div class="tag">COLONNA SONORA</div><h2>Musica AperiArt</h2><p>Pennelli, Spritz e la musica giusta.</p><button class="primary spotify" onclick="openSpotify()">♫ APRI LA PLAYLIST SU SPOTIFY</button></div></section>
+
+<section id="adminInfo" class="hidden"><button class="back" onclick="show('home')">← Home</button><div class="panel"><div class="tag">REGIA APERIART</div><h2>Area organizzatore</h2><p>La Regia non è esposta agli invitati: apertura/chiusura delle fasi e risultati vanno gestiti in modo protetto.</p><p class="tiny">Nella V3.1 il database condiviso è già predisposto. Completeremo la Regia protetta senza inserire chiavi amministrative nel sito pubblico.</p></div></section>
+
+</main>
+<nav class="nav hidden" id="nav"><div class="navin"><button onclick="show('home')">⌂<br>Home</button><button onclick="show('upload')">＋<br>Opera</button><button onclick="show('gallery')">▧<br>Galleria</button><button onclick="show('vote')">♥<br>Vota</button></div></nav>
+
+<script>
+const SUPABASE_URL='https://awnzywlxqgpwqrigwaqa.supabase.co';
+const SUPABASE_KEY='sb_publishable_c2aajZ26T6793XJvTkT1uA_PIAu-iS7';
+const SPOTIFY_URL='https://open.spotify.com/playlist/62biPfoYdwcaxzUuVnW3wH?si=Z-md5RWASyy-M7Ubfkyj8w&utm_source=copy-link&pt=b37f3158182ae162c44627e350df24d8';
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+let me=null, profile=null, settings={uploads_open:true,voting_open:false,results_visible:false}, artworks=[], myArtwork=null, myVotes=[];
+const avatarColors=['#F05A16','#E94F72','#315C47','#173C70','#F5AA24','#8A5A44'];
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+function avatarColor(id){let n=0;for(const c of id||'')n=(n+c.charCodeAt(0))%avatarColors.length;return avatarColors[n]}
+function show(id){document.querySelectorAll('main section').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');if(profile)nav.classList.remove('hidden');render()}
+async function init(){
+ try{
+  let {data:{session}}=await sb.auth.getSession();
+  if(!session){let r=await sb.auth.signInAnonymously();if(r.error)throw r.error;session=r.data.session}
+  me=session.user;
+  const p=await sb.from('participants').select('*').eq('id',me.id).maybeSingle(); if(p.error)throw p.error; profile=p.data;
+  if(!profile){loading.classList.add('hidden');onboarding.classList.remove('hidden');return}
+  await refresh(); loading.classList.add('hidden');home.classList.remove('hidden');nav.classList.remove('hidden');subscribe();render();
+ }catch(e){loading.innerHTML=`<div class="panel"><h2>Connessione non riuscita</h2><p>${esc(e.message)}</p><p class="tiny">Controlla che Anonymous Sign-Ins sia attivo in Supabase.</p></div>`}
+}
+async function joinEvent(){
+ const name=joinName.value.trim();if(!name){joinMsg.innerHTML='<div class="notice">Inserisci il tuo nome.</div>';return}
+ const r=await sb.from('participants').insert({id:me.id,name}).select().single();
+ if(r.error){joinMsg.innerHTML=`<div class="notice">${esc(r.error.message)}</div>`;return}
+ profile=r.data;await refresh();show('home');subscribe();
+}
+async function refresh(){
+ const [s,a,v]=await Promise.all([
+  sb.from('event_settings').select('*').eq('id',1).single(),
+  sb.from('artworks').select('*').eq('approved',true).order('created_at',{ascending:true}),
+  sb.from('votes').select('category,artwork_id').eq('voter_id',me.id)
+ ]);
+ if(!s.error)settings=s.data;if(!a.error)artworks=a.data||[];if(!v.error)myVotes=v.data||[];
+ myArtwork=artworks.find(x=>x.artist_id===me.id)||null;
+}
+function subscribe(){
+ sb.channel('aperiart-live')
+ .on('postgres_changes',{event:'*',schema:'public',table:'artworks'},async()=>{await refresh();render()})
+ .on('postgres_changes',{event:'UPDATE',schema:'public',table:'event_settings',filter:'id=eq.1'},async()=>{await refresh();render()})
+ .subscribe();
+}
+function phase(){
+ if(settings.results_visible)return 'results';
+ if(settings.voting_open)return 'voting';
+ return 'painting';
+}
+function render(){
+ if(!profile)return;
+ welcome.innerHTML=`<span class="avatar" style="background:${avatarColor(me.id)}">${esc(profile.name[0].toUpperCase())}</span><span>Bentornat${profile.name.toLowerCase().endsWith('a')?'a':'o'}, ${esc(profile.name)}</span>`;
+ const ph=phase();
+ phaseNotice.innerHTML=ph==='painting'?`<div class="notice"><b>FASE PITTURA</b><br>${settings.uploads_open?'Completa e carica la tua opera.':'I caricamenti sono chiusi. Tra poco si vota.'}</div>`:ph==='voting'?`<div class="notice ok"><b>VOTAZIONI APERTE</b><br>La giuria popolare è ufficialmente al lavoro.</div>`:`<div class="notice ok"><b>PREMIAZIONE</b><br>Il verdetto è pronto.</div>`;
+ homeMain.innerHTML=ph==='voting'?'♥<b>VOTA ORA</b><span>Scegli i tuoi preferiti</span>':ph==='results'?'🏆<b>Premiazione</b><span>Scopri il verdetto</span>':'📸<b>Carica opera</b><span>Porta il tuo quadro in galleria</span>';
+ renderGallery();renderUpload();renderVote();
+}
+function openPrimary(){show(phase()==='voting'?'vote':phase()==='results'?'gallery':'upload')}
+function imgUrl(path){return sb.storage.from('artworks').getPublicUrl(path).data.publicUrl}
+function renderGallery(){
+ arts.innerHTML=artworks.length?'':'<div class="notice">La galleria aspetta la prima opera.</div>';
+ artworks.forEach((a,i)=>arts.innerHTML+=`<div class="art"><img src="${imgUrl(a.image_path)}" alt="Opera"><div class="tag">OPERA #${String(i+1).padStart(2,'0')}</div><b>${esc(a.title||'Senza titolo')}</b></div>`);
+}
+function renderUpload(){
+ if(!settings.uploads_open){uploadForm.classList.add('hidden');existingArt.innerHTML='<div class="notice">I caricamenti sono chiusi. Le opere sono congelate per la votazione.</div>';return}
+ uploadForm.classList.remove('hidden');
+ if(myArtwork){
+  existingArt.innerHTML=`<div class="art"><img src="${imgUrl(myArtwork.image_path)}"><div class="tag">LA TUA OPERA</div><b>${esc(myArtwork.title||'Senza titolo')}</b><button class="danger" onclick="deleteArtwork()">ELIMINA LA MIA OPERA</button></div><div class="notice">Per cambiare foto o titolo, scegli i nuovi dati qui sotto e premi <b>Aggiorna opera</b>.</div>`;
+  uploadBtn.textContent='AGGIORNA OPERA';
+  if(document.activeElement!==title)title.value=myArtwork.title||'';
+ }else{existingArt.innerHTML='';uploadBtn.textContent='ESPONI L’OPERA 🎨'}
+}
+async function compressImage(file){
+ const bmp=await createImageBitmap(file);const max=1600;let w=bmp.width,h=bmp.height;if(Math.max(w,h)>max){const r=max/Math.max(w,h);w=Math.round(w*r);h=Math.round(h*r)}
+ const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(bmp,0,0,w,h);
+ return await new Promise(res=>c.toBlob(res,'image/jpeg',.82));
+}
+async function saveArtwork(){
+ if(!settings.uploads_open){alert('I caricamenti sono chiusi.');return}
+ const f=photo.files[0];const t=title.value.trim();
+ if(!myArtwork&&!f){upmsg.innerHTML='<div class="notice">Scegli una foto del quadro.</div>';return}
+ uploadBtn.disabled=true;uploadBtn.textContent='CARICAMENTO…';
+ try{
+  let path=myArtwork?.image_path;
+  if(f){
+   const blob=await compressImage(f);path=`${me.id}/opera-${Date.now()}.jpg`;
+   const u=await sb.storage.from('artworks').upload(path,blob,{contentType:'image/jpeg',upsert:false});if(u.error)throw u.error;
+  }
+  if(myArtwork){
+   const old=myArtwork.image_path;
+   const r=await sb.from('artworks').update({title:t||'Senza titolo',image_path:path}).eq('id',myArtwork.id);if(r.error)throw r.error;
+   if(f&&old&&old!==path)await sb.storage.from('artworks').remove([old]);
+  }else{
+   const r=await sb.from('artworks').insert({artist_id:me.id,title:t||'Senza titolo',image_path:path});if(r.error)throw r.error;
+  }
+  photo.value='';upmsg.innerHTML='<div class="notice ok"><b>Opera pubblicata ✓</b><br>È entrata nella Galleria AperiArt.</div>';await refresh();render();
+ }catch(e){upmsg.innerHTML=`<div class="notice">${esc(e.message)}</div>`}finally{uploadBtn.disabled=false}
+}
+async function deleteArtwork(){
+ if(!myArtwork||!settings.uploads_open)return;
+ if(!confirm('Sei sicuro? La tua opera verrà rimossa dalla galleria.'))return;
+ const a=myArtwork;const d=await sb.from('artworks').delete().eq('id',a.id);if(d.error){alert(d.error.message);return}
+ await sb.storage.from('artworks').remove([a.image_path]);title.value='';photo.value='';await refresh();render();
+}
+function renderVote(){
+ if(!settings.voting_open){voteArea.innerHTML='<div class="notice">La galleria è ancora in fermento. Le votazioni apriranno tra poco 🎨</div>';return}
+ if(myVotes.length>=3){voteArea.innerHTML='<div class="notice ok"><b>VOTO REGISTRATO ✓</b><br>La tua parte da critico d’arte è finita. Il verdetto è al sicuro. Ora torna alla festa.</div><button class="primary spotify" onclick="openSpotify()">♫ APRI LA PLAYLIST APERIART</button>';return}
+ const eligible=artworks.filter(a=>a.artist_id!==me.id);
+ if(eligible.length<3){voteArea.innerHTML='<div class="notice">Servono almeno tre opere degli altri artisti per completare la votazione.</div>';return}
+ const opts='<option value="">Scegli un’opera…</option>'+eligible.map(a=>`<option value="${a.id}">#${String(artworks.indexOf(a)+1).padStart(2,'0')} — ${esc(a.title||'Senza titolo')}</option>`).join('');
+ voteArea.innerHTML=`<p>Nessuna amicizia. Nessuna pietà. Solo arte.</p><label>🏆 Premio AperiArt</label><select id="v1">${opts}</select><label>🎨 Premio Artista</label><select id="v2">${opts}</select><label>✨ Premio Fuori Tela</label><select id="v3">${opts}</select><button class="primary" onclick="confirmVotes()">CONTINUA</button>`;
+}
+async function confirmVotes(){
+ const vals=[v1.value,v2.value,v3.value];if(vals.some(x=>!x)||new Set(vals).size<3){alert('Scegli tre opere diverse.');return}
+ const labels=['Premio AperiArt','Premio Artista','Premio Fuori Tela'];const names=vals.map(id=>{const a=artworks.find(x=>x.id===id);return `#${String(artworks.indexOf(a)+1).padStart(2,'0')} — ${a.title||'Senza titolo'}`});
+ if(!confirm(`Confermi i tuoi voti?\n\n${labels[0]}: ${names[0]}\n${labels[1]}: ${names[1]}\n${labels[2]}: ${names[2]}\n\nDopo la conferma non potrai modificarli.`))return;
+ const rows=[{voter_id:me.id,artwork_id:vals[0],category:'aperiart'},{voter_id:me.id,artwork_id:vals[1],category:'picasso'},{voter_id:me.id,artwork_id:vals[2],category:'creativita'}];
+ const r=await sb.from('votes').insert(rows);if(r.error){alert(r.error.message);return}await refresh();renderVote();
+}
+function openSpotify(){window.open(SPOTIFY_URL,'_blank','noopener')}
+init();
+</script>
+</body></html>
