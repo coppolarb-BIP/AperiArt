@@ -36,9 +36,9 @@ body:before{
   content:"";position:absolute;width:95px;height:95px;border-radius:50%;
   right:-38px;top:-42px;background:rgba(255,255,255,.13);pointer-events:none
 }
-#homeMain.voteHero{grid-column:1/-1;min-height:155px}
-#homeMain.voteHero b{font-size:32px}
-#homeMain.voteHero span{font-size:19px}
+
+
+
 .phaseSpark{
   display:inline-block;margin-left:7px;animation:aperiPulse 1.8s ease-in-out infinite
 }
@@ -62,7 +62,7 @@ body:before{
  <div class="grid">
   <button class="card orange" id="homeMain" onclick="openPrimary()">📸<b>Carica opera</b><span>Porta il tuo quadro in galleria</span></button>
   <button class="card pink" onclick="show('gallery')">🖼️<b>Galleria</b><span>Scopri tutte le opere</span></button>
-  <button class="card green" id="secondaryVote" onclick="show('vote')">♥<b>Vota</b><span>Scegli i tuoi preferiti</span></button>
+  <button class="card green" id="secondaryVote" onclick="show('upload')">✦<b>Opera</b><span>Carica o gestisci la tua opera</span></button>
   <button class="card ochre" onclick="show('music')">♫<b>Musica</b><span>La playlist della festa</span></button>
  </div>
 </section>
@@ -142,9 +142,6 @@ function render(){
  const ph=phase();
  phaseNotice.innerHTML=ph==='painting'?`<div class="notice"><b>FASE PITTURA</b><br>${settings.uploads_open?'Completa e carica la tua opera.':'I caricamenti sono chiusi. Tra poco si vota.'}</div>`:ph==='voting'?`<div class="notice ok"><b>VOTAZIONI APERTE</b><br>La giuria popolare è ufficialmente al lavoro. <span class="phaseSpark">♥</span></div>`:`<div class="notice ok"><b>PREMIAZIONE</b><br>Il verdetto è pronto.</div>`;
  homeMain.innerHTML=ph==='voting'?'♥<b>VOTA ORA</b><span>Scegli i tuoi preferiti</span>':ph==='results'?'🏆<b>Premiazione</b><span>Scopri il verdetto</span>':'📸<b>Carica opera</b><span>Porta il tuo quadro in galleria</span>';
- const secondaryVote=document.getElementById('secondaryVote');
- if(secondaryVote) secondaryVote.style.display = ph==='voting' ? 'none' : '';
- homeMain.classList.toggle('voteHero', ph==='voting');
  renderGallery();renderUpload();renderVote();
 }
 function openPrimary(){show(phase()==='voting'?'vote':phase()==='results'?'gallery':'upload')}
