@@ -21,6 +21,29 @@ label{display:block;font-weight:800;margin:14px 0 6px}input,select{width:100%;pa
 .back{background:transparent;box-shadow:none;padding:4px 0;color:var(--green);font-weight:900}.art{background:white;border-radius:18px;padding:10px;margin:12px 0}.art img{width:100%;aspect-ratio:4/3;border-radius:14px;display:block;object-fit:cover}.tag{font-weight:900;color:var(--coral);font-size:12px;letter-spacing:.1em}.notice{background:#fff7e7;border-left:5px solid var(--ochre);padding:12px;border-radius:12px;margin-top:12px}.ok{border-left-color:var(--green)}.tiny{font-size:12px;opacity:.72}.muted{opacity:.7}.welcome{display:flex;align-items:center;gap:10px;margin:8px 0 16px;font-weight:900}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:white;font-weight:900}
 .nav{position:fixed;bottom:0;left:0;right:0;background:#fff8ea;border-top:1px solid #ead8bd;display:flex;justify-content:center;z-index:5}.navin{width:min(540px,100%);display:flex;justify-content:space-around;padding:10px}.nav button{background:transparent;box-shadow:none;padding:8px;font-size:12px;text-align:center}
 .loader{padding:24px;text-align:center}.statuspill{display:inline-block;padding:7px 10px;border-radius:999px;background:white;font-size:12px;font-weight:900;margin:5px 3px}.spotify{background:#191414;color:white}.adminlink{margin-top:28px;text-align:center;font-size:12px;color:#8c6d59;text-decoration:underline;cursor:pointer}
+
+/* V3.3 — polish AperiArt */
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background:
+    radial-gradient(circle at 12% 18%,rgba(244,91,22,.09),transparent 24%),
+    radial-gradient(circle at 88% 12%,rgba(242,157,174,.10),transparent 22%),
+    radial-gradient(circle at 82% 82%,rgba(248,174,35,.10),transparent 25%);
+}
+.card{position:relative;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease}
+.card:active{transform:scale(.975)}
+.card:after{
+  content:"";position:absolute;width:95px;height:95px;border-radius:50%;
+  right:-38px;top:-42px;background:rgba(255,255,255,.13);pointer-events:none
+}
+#homeMain.voteHero{grid-column:1/-1;min-height:155px}
+#homeMain.voteHero b{font-size:32px}
+#homeMain.voteHero span{font-size:19px}
+.phaseSpark{
+  display:inline-block;margin-left:7px;animation:aperiPulse 1.8s ease-in-out infinite
+}
+@keyframes aperiPulse{0%,100%{transform:scale(1);opacity:.75}50%{transform:scale(1.22);opacity:1}}
+
 </style>
 </head>
 <body>
@@ -39,7 +62,7 @@ label{display:block;font-weight:800;margin:14px 0 6px}input,select{width:100%;pa
  <div class="grid">
   <button class="card orange" id="homeMain" onclick="openPrimary()">📸<b>Carica opera</b><span>Porta il tuo quadro in galleria</span></button>
   <button class="card pink" onclick="show('gallery')">🖼️<b>Galleria</b><span>Scopri tutte le opere</span></button>
-  <button class="card green" onclick="show('vote')">♥<b>Vota</b><span>Scegli i tuoi preferiti</span></button>
+  <button class="card green" id="secondaryVote" onclick="show('vote')">♥<b>Vota</b><span>Scegli i tuoi preferiti</span></button>
   <button class="card ochre" onclick="show('music')">♫<b>Musica</b><span>La playlist della festa</span></button>
  </div>
 </section>
@@ -70,7 +93,7 @@ label{display:block;font-weight:800;margin:14px 0 6px}input,select{width:100%;pa
 <script>
 const SUPABASE_URL='https://awnzywlxqgpwqrigwaqa.supabase.co';
 const SUPABASE_KEY='sb_publishable_c2aajZ26T6793XJvTkT1uA_PIAu-iS7';
-const SPOTIFY_URL='https://open.spotify.com/playlist/62biPfoYdwcaxzUuVnW3wH?si=Z-md5RWASyy-M7Ubfkyj8w&utm_source=copy-link&pt=b37f3158182ae162c44627e350df24d8';
+const SPOTIFY_URL='https://open.spotify.com/playlist/5WiDMrr8nSd1u0cBJOoAfR?si=Q6_SdJqdQFKpcPW8D22_Iw&utm_source=copy-link&pi=tO39QWcPR1G8X';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 let me=null, profile=null, settings={uploads_open:true,voting_open:false,results_visible:false}, artworks=[], myArtwork=null, myVotes=[];
 const avatarColors=['#F05A16','#E94F72','#315C47','#173C70','#F5AA24','#8A5A44'];
@@ -117,8 +140,11 @@ function render(){
  if(!profile)return;
  welcome.innerHTML=`<span class="avatar" style="background:${avatarColor(me.id)}">${esc(profile.name[0].toUpperCase())}</span><span>Bentornat${profile.name.toLowerCase().endsWith('a')?'a':'o'}, ${esc(profile.name)}</span>`;
  const ph=phase();
- phaseNotice.innerHTML=ph==='painting'?`<div class="notice"><b>FASE PITTURA</b><br>${settings.uploads_open?'Completa e carica la tua opera.':'I caricamenti sono chiusi. Tra poco si vota.'}</div>`:ph==='voting'?`<div class="notice ok"><b>VOTAZIONI APERTE</b><br>La giuria popolare è ufficialmente al lavoro.</div>`:`<div class="notice ok"><b>PREMIAZIONE</b><br>Il verdetto è pronto.</div>`;
+ phaseNotice.innerHTML=ph==='painting'?`<div class="notice"><b>FASE PITTURA</b><br>${settings.uploads_open?'Completa e carica la tua opera.':'I caricamenti sono chiusi. Tra poco si vota.'}</div>`:ph==='voting'?`<div class="notice ok"><b>VOTAZIONI APERTE</b><br>La giuria popolare è ufficialmente al lavoro. <span class="phaseSpark">♥</span></div>`:`<div class="notice ok"><b>PREMIAZIONE</b><br>Il verdetto è pronto.</div>`;
  homeMain.innerHTML=ph==='voting'?'♥<b>VOTA ORA</b><span>Scegli i tuoi preferiti</span>':ph==='results'?'🏆<b>Premiazione</b><span>Scopri il verdetto</span>':'📸<b>Carica opera</b><span>Porta il tuo quadro in galleria</span>';
+ const secondaryVote=document.getElementById('secondaryVote');
+ if(secondaryVote) secondaryVote.style.display = ph==='voting' ? 'none' : '';
+ homeMain.classList.toggle('voteHero', ph==='voting');
  renderGallery();renderUpload();renderVote();
 }
 function openPrimary(){show(phase()==='voting'?'vote':phase()==='results'?'gallery':'upload')}
